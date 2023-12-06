@@ -5,3 +5,5 @@
 
 0       string  SCHOOL  School data file
 
+file -d -m school.mgc your_file
+
