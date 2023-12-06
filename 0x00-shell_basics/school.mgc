@@ -1,2 +1,7 @@
-#!/bin/bash 
-file -d -m school.mgc your_file
+# school.mgc
+
+# Magic file for detecting School data files
+# Files containing the string SCHOOL at offset 0
+
+0       string  SCHOOL  School data file
+
