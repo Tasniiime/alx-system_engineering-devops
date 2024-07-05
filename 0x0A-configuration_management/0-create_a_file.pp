@@ -1,4 +1,6 @@
-# Create /tmp/school file with specific permissions and content
+#!/usr/bin/puppet
+# Create /tmp/school file with specific permissions and
+ content
 file { '/tmp/school':
   ensure  => file,
   mode    => '0744',
