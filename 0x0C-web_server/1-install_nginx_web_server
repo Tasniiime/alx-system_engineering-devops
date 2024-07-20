@@ -5,31 +5,9 @@
 apt-get update
 apt-get install -y nginx
 
-# Allow incoming traffic for Nginx HTTP
-ufw allow 'Nginx HTTP'
-
 # Create a simple HTML page with "Hello World!"
 echo "Hello World!" > /var/www/html/index.html
-
-# Ensure Nginx is configured to listen on all interfaces
-cat > /etc/nginx/sites-available/default << EOF
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /var/www/html;
-    index index.html index.htm index.nginx-debian.html;
-    server_name _;
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-}
-EOF
 
 # Restart Nginx
 service nginx restart
 
-# Print status and IP for verification
-echo "Nginx status:"
-systemctl status nginx
-echo "Server IP:"
-curl -s ifconfig.me
