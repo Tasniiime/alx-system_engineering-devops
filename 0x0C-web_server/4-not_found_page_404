@@ -11,33 +11,22 @@ echo "Ceci n'est pas une page" > /var/www/html/404.html
 # Configure Nginx
 cat > /etc/nginx/sites-available/default <<EOF
 server {
-  listen 80 default_server;  # Listen on port 80 (adjust if needed)
-  server_name _;              # Respond to all server names
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-  # Define the location for your custom error pages
-  location /error_pages/ {
-    allow 127.0.0.1;  # Allow access from localhost only (optional for security)
-    deny all;        # Deny access from all other locations
-  }
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
 
-  # Set the root path for serving static content
-  root /var/www/html;  # Adjust if your document root is different
+    server_name _;
 
-  # Configure error pages
-  error_page 404 /error_pages/404.html;
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
 
-  # Create the custom 404 page
-  location /error_pages/404.html {
-    root /var/www/html;  # Use the same document root as above
-    content_type text/html;  # Set the content type
-
-    # Replace with your desired content
-    # This will return a 404 status code with the message
-    try_files $uri /error_pages/404.html;
-
-    # Display the custom message
-    body "Ceci n'est pas une page";
-  }
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
 }
 EOF
 
