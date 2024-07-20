@@ -2,6 +2,9 @@
 # Configures Nginx server with custom 404 page
 
 
+apt-get update
+apt-get install -y nginx
+
 echo "Ceci n'est pas une page" > /var/www/html/404.html
 
 cat > /etc/nginx/sites-available/default <<EOF
