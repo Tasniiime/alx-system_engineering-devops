@@ -2,5 +2,3 @@
 # Bash script that creates an RSA key pair
 
 ssh-keygen -b 4096 -f school -t rsa -N betty
-
-Tasnime — 07/06/2024 12:41 AM
