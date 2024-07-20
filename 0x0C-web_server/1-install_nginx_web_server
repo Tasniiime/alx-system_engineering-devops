@@ -1,31 +1,11 @@
 #!/usr/bin/env bash
-# Script that configures nginx to run as nginx user
+# Install nginx on your web-01 server
+# Nginx should be listening on port 80
+# When querying Nginx at its root / with a GET request (requesting a page) 
+# using curl, it must return a page that contains the string Holberton School
 
-# Stop nginx service if it's running
-service nginx stop
-
-# Update package list and install nginx if not already installed
-apt-get update
-apt-get install -y nginx
-
-# Modify nginx configuration to run as nginx user
-sed -i 's/#user www-data/user nginx/' /etc/nginx/nginx.conf
-
-# Change ownership of nginx directories
-chown -R nginx:nginx /var/log/nginx
-chown -R nginx:nginx /var/lib/nginx
-
-# Modify nginx to listen on port 8080
-sed -i 's/80/8080/g' /etc/nginx/sites-available/default
-
-# Ensure nginx has permissions to bind to port 8080
-setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx
-
-# Check nginx configuration for syntax errors
-nginx -t
-
-# Start nginx service
+apt-get -y update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+echo 'Hello World!' > /var/www/html/index.html
 service nginx start
-
-# Verify nginx is running as nginx user
-ps auxff | grep nginx
