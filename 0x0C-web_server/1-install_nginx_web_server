@@ -5,11 +5,15 @@
 apt-get update
 apt-get install -y nginx
 
+# Allow incoming traffic for Nginx HTTP
+ufw allow 'Nginx HTTP'
+
 # Create a simple HTML page with "Hello World!"
 echo "Hello World!" > /var/www/html/index.html
 
-# Configure Nginx to listen on port 80
-sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
+# Configure Nginx to listen on all interfaces
+sed -i 's/listen 80 default_server;/listen 0.0.0.0:80 default_server;/' /etc/nginx/sites-available/default
+sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80 default_server;/' /etc/nginx/sites-available/default
 
 # Restart Nginx (without using systemctl)
 service nginx restart
