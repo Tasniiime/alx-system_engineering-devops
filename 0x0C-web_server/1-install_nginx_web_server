@@ -11,9 +11,25 @@ ufw allow 'Nginx HTTP'
 # Create a simple HTML page with "Hello World!"
 echo "Hello World!" > /var/www/html/index.html
 
-# Configure Nginx to listen on all interfaces
-sed -i 's/listen 80 default_server;/listen 0.0.0.0:80 default_server;/' /etc/nginx/sites-available/default
-sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80 default_server;/' /etc/nginx/sites-available/default
+# Ensure Nginx is configured to listen on all interfaces
+cat > /etc/nginx/sites-available/default << EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+    server_name _;
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF
 
-# Restart Nginx (without using systemctl)
+# Restart Nginx
 service nginx restart
+
+# Print status and IP for verification
+echo "Nginx status:"
+systemctl status nginx
+echo "Server IP:"
+curl -s ifconfig.me
