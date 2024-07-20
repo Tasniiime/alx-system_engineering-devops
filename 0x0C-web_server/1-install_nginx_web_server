@@ -1,14 +1,31 @@
 #!/usr/bin/env bash
-# a script that installs and sets up nginx
+# Script that configures nginx to run as nginx user
 
-# Update package list
+# Stop nginx service if it's running
+service nginx stop
+
+# Update package list and install nginx if not already installed
 apt-get update
-
-# Install Nginx
 apt-get install -y nginx
 
-# Create a simple HTML page with "Hello World!"
-echo "Hello World!" > /var/www/html/index.html
+# Modify nginx configuration to run as nginx user
+sed -i 's/#user www-data/user nginx/' /etc/nginx/nginx.conf
 
-# Start nginx
-sudo service nginx start
+# Change ownership of nginx directories
+chown -R nginx:nginx /var/log/nginx
+chown -R nginx:nginx /var/lib/nginx
+
+# Modify nginx to listen on port 8080
+sed -i 's/80/8080/g' /etc/nginx/sites-available/default
+
+# Ensure nginx has permissions to bind to port 8080
+setcap 'cap_net_bind_service=+ep' /usr/sbin/nginx
+
+# Check nginx configuration for syntax errors
+nginx -t
+
+# Start nginx service
+service nginx start
+
+# Verify nginx is running as nginx user
+ps auxff | grep nginx
