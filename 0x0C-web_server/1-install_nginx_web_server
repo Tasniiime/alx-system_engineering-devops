@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # a script that installs and sets up nginx
+#1 Update package list
+#2  Install Nginx
+#3  Create a simple HTML page with "Hello World!"
+#4  Start nginx
 
-# Update package list
 apt-get update
 
-# Install Nginx
 apt-get install -y nginx
 
-# Create a simple HTML page with "Hello World!"
 echo "Hello World!" > /var/www/html/index.html
 
-# Start nginx
 sudo service nginx start
