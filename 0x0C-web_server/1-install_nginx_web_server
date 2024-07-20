@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# a script that installs nginx
+# a script that installs and sets up nginx
 
-sudo apt update
+# Update package list
+apt-get update
 
-sudo apt install nginx -y
+# Install Nginx
+apt-get install -y nginx
 
-sudo systemctl start nginx
-
-sudo systemctl enable nginx
-
+# Create a simple HTML page with "Hello World!"
 echo "Hello World!" > /var/www/html/index.html
-# You can verify that Nginx is running by visiting your server's IP address in a web browser. "http://your_server_ip"
-sudo systemctl status nginx
+
+# Start nginx
+sudo service nginx start
