@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 # Configures Nginx server with custom 404 page
 
-# Install Nginx if not already installed
-apt-get update
-apt-get install -y nginx
 
-# Create custom 404 page
 echo "Ceci n'est pas une page" > /var/www/html/404.html
 
-# Configure Nginx
 cat > /etc/nginx/sites-available/default <<EOF
 server {
     listen 80 default_server;
@@ -30,8 +25,6 @@ server {
 }
 EOF
 
-# Test Nginx configuration
 nginx -t
 
-# Restart Nginx
 service nginx restart
