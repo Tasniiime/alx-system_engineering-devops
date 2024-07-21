@@ -1,35 +1,14 @@
 #!/usr/bin/env bash
-# Script to install and configure Nginx
+# a script that installs and sets up nginx
 
-# Update package list and install Nginx
-apt-get update -y
-apt-get install nginx -y
+# Update package list
+apt-get update
 
-# Start Nginx service
-systemctl start nginx
+# Install Nginx
+apt-get install -y nginx
 
 # Create a simple HTML page with "Hello World!"
-echo "<html><body>Hello World!</body></html>" > /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index.html
 
-# Configure Nginx
-cat > /etc/nginx/sites-available/default <<EOF
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    root /var/www/html;
-    index index.html;
-
-    388388-web-01;
-
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-}
-EOF
-
-# Test Nginx configuration
-nginx -t
-
-# Restart Nginx to apply changes
-systemctl restart nginx
+# Start nginx
+sudo service nginx start
