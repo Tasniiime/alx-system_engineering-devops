@@ -2,8 +2,8 @@
 # Script to install and configure Nginx
 
 # Update package list and install Nginx
-apt-get update -y
-apt-get install nginx -y
+apt-get -y update
+apt-get install -y nginx 
 
 # Start Nginx service
 service nginx start
