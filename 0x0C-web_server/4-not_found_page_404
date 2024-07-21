@@ -17,7 +17,7 @@ server {
     root /var/www/html;
     index index.html index.htm index.nginx-debian.html;
 
-    388388-web-01;
+    server_name _;
 
     location / {
         try_files \$uri \$uri/ =404;
