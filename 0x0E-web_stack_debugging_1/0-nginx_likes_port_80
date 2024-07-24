@@ -6,5 +6,4 @@ sed -i "s/listen [::]:8080 default_server ipv6only=on;/listen [::]:80 default_se
 sed -i "s/ ipv6only=on//" /etc/nginx/sites-available/default
 
 # Restart Nginx to apply changes
-sudo systemctl restart nginx
-
+service nginx restart
