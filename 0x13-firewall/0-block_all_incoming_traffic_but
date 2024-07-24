@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
-#Install UFW
-sudo apt-get update
-sudo apt-get install ufw
-#start
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow 22/tcp
 sudo ufw allow 443/tcp
 sudo ufw allow 80/tcp
 sudo ufw enable
-#Check the status and rules
-sudo ufw status verbose
