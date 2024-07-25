@@ -6,7 +6,7 @@ apt-get update
 apt-get install -y nginx
 
 # Create custom 404 page
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 
 # Configure Nginx
 cat > /etc/nginx/sites-available/default <<EOF
