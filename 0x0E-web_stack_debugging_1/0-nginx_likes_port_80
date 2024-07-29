@@ -1,10 +1,1 @@
-#!/bin/bash
-# Script that sets the port 80
-
-# Ensure directories and files exist
-mkdir -p /etc/nginx/sites-enabled
-mkdir -p /etc/nginx/sites-available
-touch /etc/nginx/sites-available/default
-rm -f /etc/nginx/sites-enabled/default
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
