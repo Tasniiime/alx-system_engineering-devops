@@ -1,9 +1,15 @@
-#!/usr/bin/env bash
-# Script that sets the port 80
+#!/bin/bash
 
+# Ensure Nginx is installed
+apt-get update
+apt-get install -y nginx
 
-sed -i "s/listen 8080 default_server;/listen 80 default_server;/" /etc/nginx/sites-enabled/default
-sed -i "s/listen [::]:8080 default_server ipv6only=on;/listen [::]:80 default_server;/" /etc/nginx/sites-enabled/default
-sed -i "s/ ipv6only=on//" /etc/nginx/sites-available/default
+# Configure Nginx to listen on port 80
+sed -i 's/listen 8080 default_server;/listen 80 default_server;/' /etc/nginx/sites-available/default
+sed -i 's/listen \[::\]:8080 default_server;/listen [::]:80 default_server;/' /etc/nginx/sites-available/default
 
+# Restart Nginx to apply changes
 service nginx restart
+
+# Ensure Nginx starts on boot
+systemctl enable nginx
