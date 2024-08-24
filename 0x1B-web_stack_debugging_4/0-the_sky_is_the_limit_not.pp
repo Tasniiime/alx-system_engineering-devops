@@ -1,6 +1,3 @@
- an nginx site that can't handle multiple concurrent requests
-exec { 'fix--for-nginx':
-  command => "bash -c \"sed -iE 's/^ULIMIT=.*/ULIMIT=\\\"-n 8192\\\"/' \
-/etc/default/nginx; service nginx restart\"",
-  path    => '/usr/bin:/usr/sbin:/bin'
-}
+# 0-the_sky_is_the_limit_not.pp
+exec { '/usr/bin/env sed -i s/15/1000/ /etc/default/nginx': }
+-> exec { '/usr/bin/env service nginx restart': }
